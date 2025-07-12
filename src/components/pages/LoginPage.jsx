@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { AppContext } from '../../App';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -10,15 +11,13 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const appContext = useContext(AppContext);
+  const navigateTo = appContext ? appContext.navigateTo : (page) => console.log('Navigate to:', page);
+
   // Get context functions (in real app, use useContext)
   const handleLogin = async (credentials) => {
     // This would normally come from context
     console.log('Login with:', credentials);
-  };
-
-  const navigateTo = (page) => {
-    // This would normally come from context
-    console.log('Navigate to:', page);
   };
 
   const validateForm = () => {

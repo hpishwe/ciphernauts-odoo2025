@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { User, Plus, Search, ShoppingBag, LogOut, X, Eye, Star, MapPin, SlidersHorizontal, Grid, List, Filter } from 'lucide-react';
 import './App.css';
+import SignupPage from './components/pages/SignupPage';
 
 // Context for global state management
 const AppContext = createContext();
@@ -244,6 +245,7 @@ const App = () => {
                 {currentPage === 'landing' && <LandingPage />}
                 {currentPage === 'login' && <LoginPage />}
                 {currentPage === 'browse' && <BrowsePage />}
+                {currentPage === 'signup' && <SignupPage />}
               </>
             )}
           </ErrorBoundary>
