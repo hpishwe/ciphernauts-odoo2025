@@ -165,14 +165,14 @@ const App = () => {
       
       const userData = {
         id: 1,
-        name: "Jordan Smith",
+        name: "Jane Doe",
         email: credentials.email,
         points: 850,
         level: "Eco Warrior",
         swapsCompleted: 12,
         itemsListed: 8,
         isAdmin: false,
-        avatar: "JS",
+        avatar: "JD",
         location: "NYC",
         joinDate: "2024-01-15"
       };

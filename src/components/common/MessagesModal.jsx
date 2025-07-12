@@ -26,11 +26,11 @@ const MessagesModal = ({ user, addNotification, onClose, onUnreadCountChange }) 
         const data = await response.json();
         setConversations(data.conversations);
       } else {
-        addNotification('Failed to load conversations', 'error');
+        // addNotification('Failed to load conversations', 'error');
       }
     } catch (error) {
       console.error('Error fetching conversations:', error);
-      addNotification('Failed to load conversations', 'error');
+      // addNotification('Failed to load conversations', 'error');
     } finally {
       setLoading(false);
     }

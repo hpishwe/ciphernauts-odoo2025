@@ -224,10 +224,13 @@ body {
 }
 
 .gradient-text {
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #145c3a !important;
+  font-weight: 800;
+  text-shadow: 0 0 18px #38b687cc, 0 4px 16px #145c3a55;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
 }
 
 .hero-subtitle {
@@ -594,22 +597,29 @@ body {
 }
 
 .item-overlay {
-  position: absolute;
-  top: var(--spacing-md);
-  right: var(--spacing-md);
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-small);
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  font-size: 0.8rem;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 18px;
+  padding: 4px 10px 4px 6px;
+  box-shadow: 0 2px 8px rgba(56, 182, 135, 0.08);
+  z-index: 2;
 }
 
 .overlay-icon {
-  width: 14px;
-  height: 14px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56, 182, 135, 0.12);
+  border-radius: 50%;
+  color: #38b687;
+  box-shadow: 0 2px 8px rgba(56, 182, 135, 0.08);
+  margin-right: 6px;
 }
 
 .item-info {
@@ -836,19 +846,18 @@ body {
 }
 
 .logo-text {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #145c3a;
+  text-shadow: 0 0 12px #38b68788, 0 2px 8px #145c3a44;
 }
 
 .logo-text.large {
-  font-size: 2.4rem;
+  font-size: 3rem;
   font-weight: 800;
   letter-spacing: -1px;
-  color: #2c8d7a;
+  color: #145c3a;
+  text-shadow: 0 0 18px #38b687cc, 0 4px 16px #145c3a55;
 }
 
 .logo-tagline {

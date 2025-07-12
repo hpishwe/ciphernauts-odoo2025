@@ -344,7 +344,7 @@ const BrowsePage = ({ navigateTo, addNotification, user, items: propItems }) => 
         <img src={item.images[0]} alt={item.title} loading="lazy" />
         <div className="item-status">{item.status}</div>
         <div className="item-overlay">
-          <Eye className="overlay-icon" />
+          {/* <Eye className="overlay-icon" /> */}
           <span>{item.views}</span>
         </div>
         <button className="favorite-btn">

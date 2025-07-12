@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, User, MapPin, Upload, Check } from 'lucide-react';
+import { Mail, Lock, User, MapPin, Upload, Check } from 'lucide-react';
 
 const PALETTE = {
   green1: '#338e77', // primary
@@ -331,14 +331,6 @@ const SignupPage = () => {
                       className={errors.password ? 'error' : ''}
                       disabled={loading}
                     />
-                    <button
-                      type="button"
-                      className="password-toggle"
-                      onClick={() => setShowPassword(!showPassword)}
-                      disabled={loading}
-                    >
-                      {showPassword ? <EyeOff className="icon" /> : <Eye className="icon" />}
-                    </button>
                   </div>
                   {formData.password && (
                     <div className="password-strength">
@@ -378,14 +370,6 @@ const SignupPage = () => {
                       className={errors.confirmPassword ? 'error' : ''}
                       disabled={loading}
                     />
-                    <button
-                      type="button"
-                      className="password-toggle"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      disabled={loading}
-                    >
-                      {showConfirmPassword ? <EyeOff className="icon" /> : <Eye className="icon" />}
-                    </button>
                   </div>
                   {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
                 </div>

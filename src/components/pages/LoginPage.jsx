@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { Mail, Lock } from 'lucide-react';
 
 const LoginPage = ({ handleLogin, navigateTo, loading, addNotification }) => {
   const [formData, setFormData] = useState({
@@ -68,13 +68,6 @@ const LoginPage = ({ handleLogin, navigateTo, loading, addNotification }) => {
               className={errors.password ? 'error' : ''}
               disabled={loading}
             />
-            <span
-              className="password-toggle"
-              onClick={() => setShowPassword((prev) => !prev)}
-              style={{ cursor: 'pointer', marginLeft: 8 }}
-            >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-            </span>
             {errors.password && <span className="error-text">{errors.password}</span>}
           </div>
           <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
