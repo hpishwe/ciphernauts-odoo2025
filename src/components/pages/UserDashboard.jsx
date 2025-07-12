@@ -1,6 +1,7 @@
 import React from "react";
 import "../../App.css";
 import { Trophy, Star, TrendingUp, Award } from 'lucide-react';
+import { useProducts } from '../../contexts/ProductContext';
 
 const PALETTE = {
   green1: '#338e77', // primary
@@ -37,8 +38,6 @@ const leaderboard = [
 const listings = [
   { id: 1, name: "Professional Blazer", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&auto=format" },
   { id: 2, name: "Blue Jeans", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop&auto=format" },
-  { id: 3, name: "Green Top", img: "https://via.placeholder.com/100x120?text=Green+Top" },
-  { id: 4, name: "Yellow Skirt", img: "https://via.placeholder.com/100x120?text=Yellow+Skirt" },
 ];
 
 const purchases = [
@@ -49,6 +48,22 @@ const purchases = [
 ];
 
 export default function UserDashboard() {
+  const { products } = useProducts();
+  // Fallback demo user if not provided
+  const demoUser = {
+    name: "Jane Doe",
+    email: "jane.doe@email.com",
+    avatar: "https://ui-avatars.com/api/?name=Jane+Doe&background=338e77&color=fff",
+    points: 120,
+    level: 'Eco Explorer',
+    progress: 0.65,
+    badges: [
+      { id: 1, name: 'First Swap', icon: <Trophy size={24} color="#6db77a" />, desc: 'Completed first swap!' },
+      { id: 2, name: '10 Listings', icon: <Star size={24} color="#b8e986" />, desc: 'Listed 10 items!' },
+      { id: 3, name: 'Eco Hero', icon: <Award size={24} color="#13bcbc" />, desc: 'Saved 10kg CO2!' },
+    ],
+  };
+  const currentUser = user;
   return (
     <div style={{ background: "var(--bg-main)", minHeight: "100vh", color: "var(--text-primary)", fontFamily: "'Montserrat', 'Segoe UI', sans-serif", padding: 0 }}>
       <style>{`
@@ -300,25 +315,25 @@ export default function UserDashboard() {
       </div>
       {/* Hero Banner */}
       <div className="hero-banner">
-        <img src={user.avatar} alt="avatar" className="hero-avatar" />
+        <img src={currentUser.avatar} alt="avatar" className="hero-avatar" />
         <div className="hero-info">
-          <div className="hero-name">Welcome, {user.name}!</div>
-          <div className="hero-level">Level: {user.level}</div>
-          <div style={{ color: '#fff', fontWeight: 500 }}>{user.email}</div>
+          <div className="hero-name">Welcome, {currentUser.name}!</div>
+          <div className="hero-level">Level: {currentUser.level}</div>
+          <div style={{ color: '#fff', fontWeight: 500 }}>{currentUser.email}</div>
         </div>
         <div className="progress-ring">
           <svg width="80" height="80">
             <circle cx="40" cy="40" r="34" stroke="#eaf3c2" strokeWidth="8" fill="none" />
-            <circle cx="40" cy="40" r="34" stroke="#338e77" strokeWidth="8" fill="none" strokeDasharray={2 * Math.PI * 34} strokeDashoffset={(1 - user.progress) * 2 * Math.PI * 34} style={{ transition: 'stroke-dashoffset 0.7s cubic-bezier(.68,-0.55,.27,1.55)' }} />
+            <circle cx="40" cy="40" r="34" stroke="#338e77" strokeWidth="8" fill="none" strokeDasharray={2 * Math.PI * 34} strokeDashoffset={(1 - currentUser.progress) * 2 * Math.PI * 34} style={{ transition: 'stroke-dashoffset 0.7s cubic-bezier(.68,-0.55,.27,1.55)' }} />
           </svg>
-          <div className="progress-ring-text">{Math.round(user.progress * 100)}%</div>
+          <div className="progress-ring-text">{Math.round(currentUser.progress * 100)}%</div>
         </div>
       </div>
       {/* Stats Row */}
       <div className="stats-row">
         <div className="stat-card">
           <TrendingUp size={28} color="#338e77" />
-          {user.points} <span className="stat-label">Points</span>
+          {currentUser.points} <span className="stat-label">Points</span>
         </div>
         <div className="stat-card">
           <Trophy size={28} color="#6db77a" />
@@ -335,7 +350,7 @@ export default function UserDashboard() {
       </div>
       {/* Badge Carousel */}
       <div className="badge-carousel">
-        {user.badges.map(badge => (
+        {currentUser.badges.map(badge => (
           <div key={badge.id} className="badge-card">
             <div className="badge-icon">{badge.icon}</div>
             <div>{badge.name}</div>
@@ -360,12 +375,16 @@ export default function UserDashboard() {
       <div style={{ margin: "2rem 2rem 0 2rem" }}>
         <h4 className="section-title">My Listings</h4>
         <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-          {listings.map(item => (
-            <div key={item.id} className="item-card">
-              <img src={item.img} alt={item.name} />
-              <div className="item-name">{item.name}</div>
-            </div>
-          ))}
+          {products.length === 0 ? (
+            <div style={{ color: '#888', fontSize: '1.1rem' }}>No listings yet. Add your first item!</div>
+          ) : (
+            products.slice(0, 2).map(item => (
+              <div key={item.id} className="item-card">
+                <img src={item.images && item.images[0]} alt={item.name} />
+                <div className="item-name">{item.name}</div>
+              </div>
+            ))
+          )}
         </div>
       </div>
       {/* Purchases */}

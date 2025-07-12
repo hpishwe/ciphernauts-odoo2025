@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import AppRoutes from './routes/AppRoutes';
 import MessagesButton from './components/common/MessagesButton';
+import { ProductProvider } from './contexts/ProductContext';
 
 // Add color palette CSS variables to the app root
 const PALETTE = {
@@ -207,114 +208,116 @@ const App = () => {
   };
 
   return (
-    <div className="app">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-        :root {
-          font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-          --primary1: ${PALETTE.green1};
-          --primary2: ${PALETTE.green2};
-          --primary3: ${PALETTE.green3};
-          --primary4: ${PALETTE.green4};
-          --accent1: ${PALETTE.teal1};
-          --accent2: ${PALETTE.teal2};
-          --accent3: ${PALETTE.teal3};
-          --accent4: ${PALETTE.yellow1};
-          --accent5: ${PALETTE.yellow2};
-          --accent6: ${PALETTE.yellow3};
-          --primary-gradient: linear-gradient(90deg, var(--primary1), var(--primary2), var(--primary3));
-          --accent-gradient: linear-gradient(90deg, var(--accent4), var(--accent5), var(--accent6));
-          --bg-main: var(--primary4);
-          --bg-card: #fff;
-          --border-primary: var(--primary3);
-          --text-primary: #222;
-          --text-secondary: var(--primary1);
-          --radius-large: 18px;
-          --radius-medium: 12px;
-          --radius-small: 6px;
-          --shadow-large: 0 8px 32px rgba(51,142,119,0.12);
-        }
-        body, .app {
-          font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-          background: var(--bg-main);
-          color: var(--text-primary);
-        }
-        .header, .main-content, .notification-list, .error-boundary, .auth-page, .landing-page, .browse-page {
-          background: transparent;
-        }
-        .btn-primary {
-          background: var(--primary-gradient);
-          color: #fff;
-          border: none;
-          border-radius: var(--radius-large);
-          box-shadow: var(--shadow-large);
-          transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
-        }
-        .btn-primary:hover {
-          background: var(--accent-gradient);
-          box-shadow: 0 12px 32px rgba(77,185,122,0.18);
-        }
-        .btn-secondary {
-          background: var(--accent5);
-          color: #222;
-          border: none;
-          border-radius: var(--radius-medium);
-          box-shadow: var(--shadow-large);
-        }
-        .btn-accent {
-          background: var(--accent2);
-          color: #fff;
-          border: none;
-          border-radius: var(--radius-medium);
-          box-shadow: var(--shadow-large);
-        }
-        .btn-primary:hover, .btn-secondary:hover, .btn-accent:hover {
-          transform: translateY(-2px) scale(1.04);
-          box-shadow: 0 16px 40px rgba(51,142,119,0.18);
-        }
-        .card, .auth-card, .stat-card, .signup-benefits {
-          background: rgba(255,255,255,0.85);
-          border-radius: var(--radius-large);
-          box-shadow: var(--shadow-large);
-          backdrop-filter: blur(8px);
-        }
-        .card:hover, .auth-card:hover, .stat-card:hover, .signup-benefits:hover {
-          transform: translateY(-4px) scale(1.03);
-          box-shadow: 0 16px 40px rgba(51,142,119,0.18);
-        }
-        .logo-text, .auth-title, .signup-benefits h3 {
-          background: var(--primary-gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        .gradient-text {
-          background: var(--accent-gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-      `}</style>
-      
-      <AppRoutes 
-        user={user}
-        loading={loading}
-        error={error}
-        notifications={notifications}
-        setNotifications={setNotifications}
-        navigateTo={navigateTo}
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
-        addNotification={addNotification}
-        items={items} // <-- pass items here
-      />
-      
-      {/* Floating Messages Button */}
-      <MessagesButton 
-        user={user}
-        addNotification={addNotification}
-      />
-    </div>
+    <ProductProvider>
+      <div className="app">
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+          :root {
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            --primary1: ${PALETTE.green1};
+            --primary2: ${PALETTE.green2};
+            --primary3: ${PALETTE.green3};
+            --primary4: ${PALETTE.green4};
+            --accent1: ${PALETTE.teal1};
+            --accent2: ${PALETTE.teal2};
+            --accent3: ${PALETTE.teal3};
+            --accent4: ${PALETTE.yellow1};
+            --accent5: ${PALETTE.yellow2};
+            --accent6: ${PALETTE.yellow3};
+            --primary-gradient: linear-gradient(90deg, var(--primary1), var(--primary2), var(--primary3));
+            --accent-gradient: linear-gradient(90deg, var(--accent4), var(--accent5), var(--accent6));
+            --bg-main: var(--primary4);
+            --bg-card: #fff;
+            --border-primary: var(--primary3);
+            --text-primary: #222;
+            --text-secondary: var(--primary1);
+            --radius-large: 18px;
+            --radius-medium: 12px;
+            --radius-small: 6px;
+            --shadow-large: 0 8px 32px rgba(51,142,119,0.12);
+          }
+          body, .app {
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+          }
+          .header, .main-content, .notification-list, .error-boundary, .auth-page, .landing-page, .browse-page {
+            background: transparent;
+          }
+          .btn-primary {
+            background: var(--primary-gradient);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-large);
+            transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+          }
+          .btn-primary:hover {
+            background: var(--accent-gradient);
+            box-shadow: 0 12px 32px rgba(77,185,122,0.18);
+          }
+          .btn-secondary {
+            background: var(--accent5);
+            color: #222;
+            border: none;
+            border-radius: var(--radius-medium);
+            box-shadow: var(--shadow-large);
+          }
+          .btn-accent {
+            background: var(--accent2);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-medium);
+            box-shadow: var(--shadow-large);
+          }
+          .btn-primary:hover, .btn-secondary:hover, .btn-accent:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 16px 40px rgba(51,142,119,0.18);
+          }
+          .card, .auth-card, .stat-card, .signup-benefits {
+            background: rgba(255,255,255,0.85);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-large);
+            backdrop-filter: blur(8px);
+          }
+          .card:hover, .auth-card:hover, .stat-card:hover, .signup-benefits:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 16px 40px rgba(51,142,119,0.18);
+          }
+          .logo-text, .auth-title, .signup-benefits h3 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+          .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+        `}</style>
+        
+        <AppRoutes 
+          user={user}
+          loading={loading}
+          error={error}
+          notifications={notifications}
+          setNotifications={setNotifications}
+          navigateTo={navigateTo}
+          handleLogin={handleLogin}
+          handleLogout={handleLogout}
+          addNotification={addNotification}
+          items={items} // <-- pass items here
+        />
+        
+        {/* Floating Messages Button */}
+        <MessagesButton 
+          user={user}
+          addNotification={addNotification}
+        />
+      </div>
+    </ProductProvider>
   );
 };
 

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AddProductPage.css';
+import { useProducts } from '../../contexts/ProductContext';
 
 const AddProductPage = () => {
   const navigate = useNavigate();
+  const { addProduct } = useProducts();
   const [formData, setFormData] = useState({
     name: '',
     brand: '',
@@ -68,29 +70,24 @@ const AddProductPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Create FormData for file upload
-      const submitData = new FormData();
-      
-      // Add form fields
-      Object.keys(formData).forEach(key => {
-        submitData.append(key, formData[key]);
-      });
-
-      // Add images
-      images.forEach((image, index) => {
-        submitData.append(`image_${index}`, image.file);
-      });
-
-      // Mock API call - replace with actual endpoint
-      console.log('Submitting product:', formData);
-      console.log('Images:', images);
-
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      alert('Product added successfully!');
-      navigate('/dashboard'); // Redirect to user dashboard
-      
+      // Create a new product object
+      const newProduct = {
+        id: Date.now(),
+        name: formData.name,
+        brand: formData.brand,
+        size: formData.size,
+        condition: formData.condition,
+        material: formData.material,
+        color: formData.color,
+        category: formData.category,
+        price: formData.price,
+        originalPrice: formData.originalPrice,
+        description: formData.description,
+        tags: formData.tags.split(',').map(tag => tag.trim()),
+        images: images.map(img => img.url),
+      };
+      addProduct(newProduct);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Error adding product:', error);
       alert('Error adding product. Please try again.');
