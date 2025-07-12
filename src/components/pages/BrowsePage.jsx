@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Filter, Eye, Star, User, MapPin, SlidersHorizontal, Grid, List } from 'lucide-react';
+import SwapNearbyButton from '../common/SwapNearbyButton';
 
 const HERO_IMAGE = 'https://images.unsplash.com/photo-1469398715555-76331a6c7c9b?auto=format&fit=crop&w=1200&q=80';
 const EDITORIAL_IMAGE = 'https://images.unsplash.com/photo-1469398715555-76331a6c7c9b?auto=format&fit=crop&w=1200&q=80';
 
-const BrowsePage = () => {
+const BrowsePage = ({ navigateTo, addNotification, user, items: propItems }) => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterCondition, setFilterCondition] = useState('all');
@@ -17,6 +20,7 @@ const BrowsePage = () => {
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showNearbyModal, setShowNearbyModal] = useState(false);
 
   const itemsPerPage = 12;
 
@@ -127,9 +131,11 @@ const BrowsePage = () => {
   ];
 
   useEffect(() => {
-    setItems(sampleItems);
-    setFilteredItems(sampleItems);
-  }, []);
+    if (propItems && propItems.length > 0) {
+      setItems(propItems);
+      setFilteredItems(propItems);
+    }
+  }, [propItems]);
 
   // Debounced search and filter
   useEffect(() => {
@@ -196,13 +202,13 @@ const BrowsePage = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
 
-  const navigateTo = (page, data) => {
-    console.log('Navigate to:', page, data);
+  const handleItemClick = (item) => {
+    navigate(`/product/${item.id}`);
   };
 
   const Breadcrumb = () => (
     <nav className="breadcrumb">
-      <span onClick={() => navigateTo('landing')}>Home</span>
+      <span onClick={() => navigate('/')}>Home</span>
       <span className="separator">›</span>
       <span className="current">Browse Items</span>
     </nav>
@@ -332,7 +338,7 @@ const BrowsePage = () => {
   const ItemCard = ({ item }) => (
     <div 
       className={`item-card ${viewMode}`} 
-      onClick={() => navigateTo('item-detail', item)}
+      onClick={() => handleItemClick(item)}
     >
       <div className="item-image">
         <img src={item.images[0]} alt={item.title} loading="lazy" />
@@ -413,8 +419,12 @@ const BrowsePage = () => {
     </div>
   );
 
+  const handleNearbyClick = () => {
+    window.alert('Sorry, no one to swap nearby');
+  };
+
   return (
-    <div className="browse-page">
+    <div className="browse-page" style={{ position: 'relative' }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
         body, .browse-page {
@@ -713,6 +723,42 @@ const BrowsePage = () => {
         ))}
       </div>
       {/* ...existing pagination, etc... */}
+
+      {/* Top-right action row */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: 12 }}>
+        <button
+          onClick={handleNearbyClick}
+          style={{
+            background: 'linear-gradient(90deg, #4ade80, #22c55e)',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 18,
+            padding: '7px 18px',
+            fontWeight: 600,
+            fontSize: '0.98rem',
+            boxShadow: '0 2px 8px #22c55e22',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 7,
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+          }}
+        >
+          <MapPin size={18} style={{ marginRight: 4 }} />
+          Swap Nearby
+        </button>
+      </div>
+      {/* Modal for nearby items */}
+      {showNearbyModal && (
+        <SwapNearbyButton
+          user={user}
+          products={items}
+          onProductClick={(item) => {
+            setShowNearbyModal(false);
+            navigate(`/product/${item.id}`);
+          }}
+        />
+      )}
 
       <style jsx>{`
         .browse-page {

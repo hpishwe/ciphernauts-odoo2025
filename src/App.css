@@ -821,18 +821,18 @@ body {
 }
 
 .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .logo {
-  cursor: pointer;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .logo-text {
@@ -844,16 +844,28 @@ body {
   background-clip: text;
 }
 
+.logo-text.large {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #2c8d7a;
+}
+
 .logo-tagline {
   font-size: 0.7rem;
   color: var(--text-muted);
   margin-top: -2px;
 }
 
-.nav {
+.header-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
 }
 
 .nav-link {
@@ -897,53 +909,100 @@ body {
 .user-menu {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: var(--bg-card);
-  padding: 0.5rem;
-  border-radius: var(--radius-large);
-  border: 1px solid var(--border-primary);
+  gap: 0.75rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(44, 141, 122, 0.08);
+  padding: 0.5rem 1.2rem;
+  margin-left: 1.5rem;
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--primary-gradient);
+  background: #e8f4f8;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  font-size: 0.8rem;
-  color: white;
+  font-weight: bold;
+  color: #2c8d7a;
+  font-size: 1.1rem;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
+  margin-left: 0.5rem;
 }
 
 .user-name {
-  font-size: 0.9rem;
   font-weight: 600;
+  color: #222;
+  font-size: 1rem;
 }
 
 .user-points {
-  font-size: 0.7rem;
-  color: #ffd700;
+  color: #f7b731;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .logout-btn {
   background: none;
   border: none;
-  color: var(--text-primary);
+  color: #2c8d7a;
   cursor: pointer;
-  padding: 0.25rem;
-  border-radius: var(--radius-small);
-  transition: color 0.3s ease;
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
 }
 
 .logout-btn:hover {
   color: var(--error-color);
+}
+
+@media (min-width: 769px) {
+  .header-content {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-right {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 2rem;
+  }
+  .nav {
+    flex-direction: row !important;
+    gap: 1.5rem;
+  }
+  .user-menu {
+    min-width: 180px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 1rem;
+  }
+  .header-right {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+    flex-direction: row;
+  }
+  .nav {
+    gap: 1rem;
+  }
+  .user-menu {
+    margin-left: 0.5rem;
+    padding: 0.5rem 0.7rem;
+  }
 }
 
 /* Main Content */
@@ -964,27 +1023,57 @@ body {
 }
 
 .notification {
-  background: rgba(15, 15, 35, 0.95);
-  border: 1px solid var(--border-primary);
-  padding: 1rem;
+  background: #fff;
+  border: 2px solid var(--border-primary);
+  padding: 1.1rem 1.5rem 1.1rem 1.2rem;
   border-radius: var(--radius-medium);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 300px;
+  min-width: 320px;
+  max-width: 400px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 8px rgba(0,0,0,0.08);
+  color: #222;
   animation: slideIn 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  margin-bottom: 0.5rem;
+  border-left-width: 6px;
 }
 
 .notification.success {
+  border-left: 6px solid var(--success-color);
   border-color: var(--success-color);
+  background: #f6fff8;
 }
 
 .notification.error {
+  border-left: 6px solid var(--error-color);
   border-color: var(--error-color);
+  background: #fff6f6;
+  color: #b00020;
 }
 
 .notification.info {
+  border-left: 6px solid var(--info-color);
   border-color: var(--info-color);
+  background: #f6faff;
+}
+
+.notification .notification-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s;
+  padding: 0.2rem 0.4rem;
+}
+
+.notification .notification-close:hover {
+  background: #f0f0f0;
+  color: #222;
 }
