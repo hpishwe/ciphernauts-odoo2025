@@ -1,5 +1,19 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, MapPin, Upload, Check } from 'lucide-react';
+
+const PALETTE = {
+  green1: '#338e77', // primary
+  green2: '#6db77a',
+  green3: '#a3d68c',
+  green4: '#eaf3c2',
+  teal1: '#13bcbc',
+  teal2: '#4be0db',
+  teal3: '#b2f1e5',
+  yellow1: '#f9fa77',
+  yellow2: '#b8e986',
+  yellow3: '#8dd96a',
+};
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -1235,6 +1249,72 @@ const SignupPage = () => {
         .benefit-item:hover .benefit-icon {
           background: rgba(102, 126, 234, 0.1);
           transition: background 0.2s ease;
+        }
+      `}</style>
+      <style>{`
+        :root {
+          --primary1: ${PALETTE.green1};
+          --primary2: ${PALETTE.green2};
+          --primary3: ${PALETTE.green3};
+          --primary4: ${PALETTE.green4};
+          --accent1: ${PALETTE.teal1};
+          --accent2: ${PALETTE.teal2};
+          --accent3: ${PALETTE.teal3};
+          --accent4: ${PALETTE.yellow1};
+          --accent5: ${PALETTE.yellow2};
+          --accent6: ${PALETTE.yellow3};
+          --primary-gradient: linear-gradient(90deg, var(--primary1), var(--primary2), var(--primary3));
+          --accent-gradient: linear-gradient(90deg, var(--accent4), var(--accent5), var(--accent6));
+          --bg-main: var(--primary4);
+          --bg-card: #fff;
+          --border-primary: var(--primary3);
+          --text-primary: #222;
+          --text-secondary: var(--primary1);
+          --radius-large: 18px;
+          --radius-medium: 12px;
+          --radius-small: 6px;
+          --shadow-large: 0 8px 32px rgba(51,142,119,0.12);
+        }
+        .auth-page, .signup-page {
+          background: var(--bg-main);
+        }
+        .auth-card, .glass-effect, .signup-benefits {
+          background: rgba(255,255,255,0.85);
+          border-radius: var(--radius-large);
+          box-shadow: var(--shadow-large);
+          backdrop-filter: blur(8px);
+        }
+        .btn-primary {
+          background: var(--primary-gradient);
+          color: #fff;
+          border: none;
+          border-radius: var(--radius-large);
+          box-shadow: var(--shadow-large);
+          transition: background 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary:hover {
+          background: var(--accent-gradient);
+          box-shadow: 0 12px 32px rgba(77,185,122,0.18);
+        }
+        .btn-social {
+          background: var(--accent5);
+          color: #222;
+          border: none;
+          border-radius: var(--radius-medium);
+          box-shadow: var(--shadow-large);
+        }
+        .btn-social:hover {
+          background: var(--accent2);
+          color: #fff;
+        }
+        .auth-title, .signup-benefits h3 {
+          background: var(--primary-gradient);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .auth-link {
+          color: var(--primary1);
         }
       `}</style>
     </div>

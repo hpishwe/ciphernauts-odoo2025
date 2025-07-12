@@ -1,5 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, Eye, Star, User, MapPin, SlidersHorizontal, Grid, List } from 'lucide-react';
+
+const HERO_IMAGE = 'https://images.unsplash.com/photo-1469398715555-76331a6c7c9b?auto=format&fit=crop&w=1200&q=80';
+const EDITORIAL_IMAGE = 'https://images.unsplash.com/photo-1469398715555-76331a6c7c9b?auto=format&fit=crop&w=1200&q=80';
 
 const BrowsePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -411,6 +415,197 @@ const BrowsePage = () => {
 
   return (
     <div className="browse-page">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+        body, .browse-page {
+          font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+          background: #f7faf7;
+        }
+        .sticky-filter-bar {
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          background: #fff;
+          box-shadow: 0 2px 12px rgba(51,142,119,0.08);
+          padding: 1rem 2rem;
+          display: flex;
+          gap: 1.5rem;
+          align-items: center;
+          border-radius: 0 0 18px 18px;
+        }
+        .editorial-banner {
+          background: url('${EDITORIAL_IMAGE}') center/cover no-repeat;
+          min-height: 30vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          border-radius: 18px;
+          margin: 2rem 0;
+        }
+        .editorial-overlay {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(51,142,119,0.55);
+          backdrop-filter: blur(2px);
+          z-index: 1;
+          border-radius: 18px;
+        }
+        .editorial-content {
+          position: relative;
+          z-index: 2;
+          color: #fff;
+          text-align: center;
+          padding: 2rem 1rem;
+        }
+        .editorial-title {
+          font-size: 2.2rem;
+          font-weight: 700;
+          margin-bottom: 0.7rem;
+          background: linear-gradient(90deg, #338e77, #6db77a, #b8e986);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .editorial-subtitle {
+          font-size: 1.1rem;
+          font-weight: 500;
+          margin-bottom: 1.2rem;
+        }
+        .product-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 2rem;
+          margin: 2rem 0;
+        }
+        .product-card {
+          background: #fff;
+          border-radius: 18px;
+          box-shadow: 0 4px 16px rgba(51,142,119,0.08);
+          overflow: hidden;
+          transition: box-shadow 0.3s, transform 0.2s;
+          cursor: pointer;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+        }
+        .product-card:hover {
+          transform: translateY(-4px) scale(1.03);
+          box-shadow: 0 12px 32px rgba(51,142,119,0.18);
+        }
+        .product-image {
+          height: 220px;
+          background: #eaf3c2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+        .product-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s;
+        }
+        .product-card:hover .product-image img {
+          transform: scale(1.07);
+        }
+        .product-info {
+          padding: 1.2rem 1rem;
+          font-family: 'Montserrat', 'Segoe UI', sans-serif;
+        }
+        .product-title {
+          font-size: 1.1rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+          color: #338e77;
+        }
+        .product-description {
+          color: #6db77a;
+          font-size: 0.95rem;
+          margin-bottom: 0.7rem;
+        }
+        .product-meta {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.7rem;
+        }
+        .product-size {
+          font-size: 0.9rem;
+          color: #13bcbc;
+        }
+        .product-badge {
+          background: #b8e986;
+          color: #338e77;
+          border-radius: 8px;
+          padding: 0.2rem 0.7rem;
+          font-size: 0.8rem;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+        .product-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .uploader-info {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .uploader-avatar {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: linear-gradient(90deg, #338e77, #6db77a);
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 0.9rem;
+        }
+        .points-badge {
+          background: linear-gradient(90deg, #338e77, #6db77a);
+          color: #fff;
+          border-radius: 8px;
+          padding: 0.2rem 0.7rem;
+          font-size: 0.9rem;
+          font-weight: 700;
+        }
+        .product-likes {
+          color: #13bcbc;
+          font-size: 0.9rem;
+          display: flex;
+          align-items: center;
+          gap: 2px;
+        }
+        .gamify-banner {
+          background: linear-gradient(90deg, #b8e986, #13bcbc);
+          color: #338e77;
+          border-radius: 18px;
+          box-shadow: 0 4px 16px rgba(51,142,119,0.08);
+          padding: 1rem 2rem;
+          text-align: center;
+          font-weight: 700;
+          margin: 2rem 0;
+          font-size: 1.1rem;
+        }
+        .progress-widget {
+          background: #fff;
+          border-radius: 18px;
+          box-shadow: 0 4px 16px rgba(51,142,119,0.08);
+          padding: 1rem 2rem;
+          margin: 2rem 0;
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          font-size: 1.1rem;
+          color: #338e77;
+          font-weight: 700;
+        }
+      `}</style>
       <Breadcrumb />
       
       <div className="browse-header">
@@ -452,6 +647,72 @@ const BrowsePage = () => {
           {totalPages > 1 && <Pagination />}
         </>
       )}
+
+      {/* Hero Section */}
+      <div className="browse-hero-bg">
+        <div className="browse-hero-overlay" />
+        <div className="browse-hero-content">
+          <div className="browse-hero-title">Browse Unique Styles</div>
+          <div className="browse-hero-subtitle">Discover, swap, and earn points for every sustainable choice. Find your next favorite piece!</div>
+          <button className="browse-hero-cta" onClick={() => navigateTo('dashboard')}>Go to Dashboard</button>
+        </div>
+      </div>
+
+      {/* Sticky Filter Bar */}
+      <div className="sticky-filter-bar">
+        <Search />
+        <input type="text" placeholder="Search for items, brands, or styles..." style={{ flex: 1, border: 'none', outline: 'none', fontSize: '1rem', background: 'transparent' }} />
+        <button style={{ background: '#eaf3c2', border: 'none', borderRadius: '8px', padding: '0.5rem 1rem', color: '#338e77', fontWeight: 600, cursor: 'pointer' }}><Filter size={18} /> Filters</button>
+        <select style={{ border: 'none', background: '#f7faf7', color: '#338e77', fontWeight: 600, borderRadius: '8px', padding: '0.5rem 1rem' }}>
+          <option>Sort: Newest</option>
+          <option>Sort: Popular</option>
+          <option>Sort: Points High</option>
+        </select>
+      </div>
+      {/* Editorial Banner */}
+      <div className="editorial-banner">
+        <div className="editorial-overlay" />
+        <div className="editorial-content">
+          <div className="editorial-title">Discover Your Next Favorite</div>
+          <div className="editorial-subtitle">Find unique, sustainable fashion. Swap, earn, and level up your style!</div>
+        </div>
+      </div>
+      {/* Gamified Banner */}
+      <div className="gamify-banner">Earn 2x points on swaps today! Limited time only.</div>
+      {/* Progress Widget */}
+      <div className="progress-widget">
+        <span>Your Progress:</span>
+        <span>Level 2</span>
+        <span>320 pts</span>
+        <span>3 Badges</span>
+      </div>
+      {/* Product Grid */}
+      <div className="product-grid">
+        {paginatedItems.map(item => (
+          <div key={item.id} className="product-card">
+            <div className="product-image">
+              <img src={item.images[0]} alt={item.title} />
+            </div>
+            <div className="product-info">
+              <div className="product-title">{item.title}</div>
+              <div className="product-description">{item.description.substring(0, 60)}...</div>
+              <div className="product-meta">
+                <span className="product-size">Size: {item.size}</span>
+                <span className="product-badge">{item.condition}</span>
+              </div>
+              <div className="product-footer">
+                <div className="uploader-info">
+                  <div className="uploader-avatar">{item.uploader.avatar}</div>
+                  <span>{item.uploader.name}</span>
+                </div>
+                <div className="points-badge">{item.points} pts</div>
+                <div className="product-likes"><Star size={16} /> {item.likes}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* ...existing pagination, etc... */}
 
       <style jsx>{`
         .browse-page {
